@@ -6,7 +6,7 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath group: 'com.mofeng', name:'MofengGradlePlugin',version:'1.0.1'
+		classpath group: 'com.tangzx', name:'XCodeGradlePlugin',version:'1.0.0'
 	}
 }
 
