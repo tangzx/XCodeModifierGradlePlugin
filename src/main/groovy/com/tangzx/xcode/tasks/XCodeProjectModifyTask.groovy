@@ -12,7 +12,7 @@ import org.gradle.api.tasks.TaskAction
 *  Created by Tangzx on 15/4/12.
 * @qq 272669294
 */
-class XCodeProjectModTask extends DefaultTask{
+class XCodeProjectModifyTask extends DefaultTask{
 
     XCodeProjectConvention xcodeExt
 
