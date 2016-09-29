@@ -1,0 +1,26 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+group = 'com.tangzx'
+version = "1.0.0"
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile gradleApi()
+    compile "ca.mestevens.ios:xcode-project-parser:+"
+    compile "com.googlecode.plist:dd-plist:+"
+}
+
+task publishLocal(type: Upload) {
+    configuration = configurations.archives
+    repositories {
+        mavenDeployer {
+            repository(url: uri('repo'))
+        }
+    }
+}

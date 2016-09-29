@@ -1,0 +1,27 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		maven {
+		   url 'file:repo'
+		}
+	}
+	dependencies {
+		classpath group: 'com.mofeng', name:'MofengGradlePlugin',version:'1.0.1'
+	}
+}
+
+apply plugin: "xcodeproject"
+
+xcodeproject {
+	src = "/Users/mofeng/Desktop/XX/xx/xx.xcodeproj/project.pbxproj"
+
+	addEmbedFramework "/Users/mofeng/Desktop/XX/xx/XYPlatform.framework"
+
+	info {
+		addKeyValue a:"b", c:true
+
+		removeKey "CFBundleDevelopmentRegion"
+
+		addURLSchemes "test.com"
+	}
+}
