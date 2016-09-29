@@ -6,13 +6,13 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath group: 'com.tangzx', name:'XCodeGradlePlugin',version:'1.0.0'
+		classpath group: 'com.tangzx', name:'xcode-modifier',version:'1.0.0'
 	}
 }
 
-apply plugin: "xcodeproject"
+apply plugin: "xcode-modifier"
 
-xcodeproject {
+modifier {
 	src = "/Users/mofeng/Desktop/XX/xx/xx.xcodeproj/project.pbxproj"
 
 	addEmbedFramework "/Users/mofeng/Desktop/XX/xx/XYPlatform.framework"

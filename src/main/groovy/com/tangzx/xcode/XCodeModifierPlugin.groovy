@@ -16,7 +16,7 @@ class XCodeModifierPlugin implements Plugin<Project> {
 
     void apply (Project project) {
         _project = project
-        _project.extensions.create("xcode-modifier", XCodeProjectConvention)
+        _project.extensions.create("modifier", XCodeProjectConvention)
 
         this.initTasks()
     }
