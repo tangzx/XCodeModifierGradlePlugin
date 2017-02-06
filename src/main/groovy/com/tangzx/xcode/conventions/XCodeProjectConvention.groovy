@@ -264,6 +264,7 @@ class LibraryFileConvention extends FrameworkFileConvention {
 }
 
 class AddBuildSetting {
+    boolean override
     String name
     List<String> values = new ArrayList<String>()
 }

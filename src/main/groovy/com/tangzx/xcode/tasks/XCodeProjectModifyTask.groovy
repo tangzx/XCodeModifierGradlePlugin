@@ -58,6 +58,8 @@ class XCodeProjectModifyTask extends DefaultTask{
 
             //Build Settings
             xcodeExt.addBuildSettings.each { AddBuildSetting setting->
+                if (setting.override)
+                    xcode.removeBuildSetting(setting.name)
                 xcode.addBuildSetting(setting.name,  setting.values)
             }
 
