@@ -18,8 +18,8 @@ class InfoPlistModifyTask extends DefaultTask{
     InfoPlistConvention infoExt
 
     @TaskAction
-    def exec() {
-        XCodeProjectConvention xcodeExt = project.extensions.xcodeproject
+    exec() {
+        XCodeProjectConvention xcodeExt = project.extensions.modifier
         if (xcodeExt.info != null && xcodeExt.info.src != null) {
             infoExt = xcodeExt.info
 
@@ -54,7 +54,7 @@ class InfoPlistModifyTask extends DefaultTask{
              */
             if (infoExt.urlSchemes.size() > 0) {
                 int size = infoExt.urlSchemes.size()
-                int i = 0;
+                int i = 0
                 NSArray old = plist.get("CFBundleURLTypes") as NSArray
                 if (old != null) {
                     size += old.array.size()

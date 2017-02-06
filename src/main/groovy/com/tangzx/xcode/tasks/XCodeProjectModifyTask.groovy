@@ -17,8 +17,8 @@ class XCodeProjectModifyTask extends DefaultTask{
     XCodeProjectConvention xcodeExt
 
     @TaskAction
-    def exec() {
-        xcodeExt = project.extensions.xcodeproject
+    exec() {
+        xcodeExt = project.extensions.modifier
         if (xcodeExt != null) {
             String src = xcodeExt.src
             if (src.endsWith("xcodeproj"))
@@ -81,9 +81,9 @@ class XCodeProjectModifyTask extends DefaultTask{
             String type = name.substring(name.lastIndexOf('.'))
             phaseType = xcodeExt.fileType2Phase[type]
 
-            if (type.equals(".h"))
+            if (type == ".h")
                 xcode.addBuildSetting("HEADER_SEARCH_PATHS", "\"" + f.parentFile.path + "\"")
-            else if (type.equals(".a"))
+            else if (type == ".a")
                 xcode.addBuildSetting("LIBRARY_SEARCH_PATHS", "\"" + f.parentFile.path + "\"")
         }
 

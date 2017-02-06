@@ -80,7 +80,7 @@ public class XCode extends XCodeProject {
 
     /**
      * 移除一个文件
-     * @param path
+     * @param path path of file
      */
     public void removeFileReference(String path) {
         while (true) {
@@ -112,7 +112,7 @@ public class XCode extends XCodeProject {
         }
     }
 
-    void removeFileInPhases(CommentedIdentifier element, List<PBXBuildPhase> phases) {
+    private void removeFileInPhases(CommentedIdentifier element, List<PBXBuildPhase> phases) {
         for (PBXBuildPhase phase : phases) {
             List<CommentedIdentifier> files = phase.getFiles();
             files.remove(element);
@@ -121,8 +121,7 @@ public class XCode extends XCodeProject {
 
     /**
      * 添加一个Embed Framework
-     * @param path
-     * @throws FileReferenceDoesNotExistException
+     * @param path path of framework
      */
     public void addEmbedFramework(String path) throws FileReferenceDoesNotExistException {
         String buildFileName = Paths.get(path).getFileName().toString();
@@ -133,7 +132,7 @@ public class XCode extends XCodeProject {
 
         for (PBXTarget target : this.nativeTargets) {
             if (target.getProductType().equals("\"com.apple.product-type.application\"")) {
-                PBXBuildPhase phase = this.getEmbedFrameworksBuildPhase(target.getName(), true);
+                PBXBuildPhase phase = this.getEmbedFrameworksBuildPhase(target.getName());
                 phase.getFiles().add(file.getReference());
             }
         }
@@ -141,8 +140,7 @@ public class XCode extends XCodeProject {
 
     /**
      * 添加一个Framework
-     * @param path
-     * @throws FileReferenceDoesNotExistException
+     * @param path path of framework
      */
     public PBXBuildFile addFramework(String path, String groupPath) throws FileReferenceDoesNotExistException {
         PBXFileElement pbxFileElement = this.addFileReference(path, groupPath);
@@ -154,6 +152,16 @@ public class XCode extends XCodeProject {
 
         this.addBuildSetting("FRAMEWORK_SEARCH_PATHS", Paths.get(path).getParent().toString());
         return pbxBuildFile;
+    }
+
+    /**
+     * 清除这个设置
+     * @param name key
+     */
+    public void removeBuildSetting(String name) {
+        for (XCBuildConfiguration cfg : this.buildConfigurations) {
+            cfg.getBuildSettings().remove(name);
+        }
     }
 
     public void addBuildSetting(String name, String value) {
@@ -224,6 +232,7 @@ public class XCode extends XCodeProject {
             String groupName = "\"" + paths[i] + "\"";
 
             PBXFileElement childGroup = null;
+            assert targetGroup != null;
             List<CommentedIdentifier> children = targetGroup.getChildren();
             for (CommentedIdentifier child : children) {
                 PBXFileElement childFile = this.getGroupWithIdentifier(child.getIdentifier());
@@ -259,7 +268,7 @@ public class XCode extends XCodeProject {
         }
     }
 
-    public PBXBuildPhase getEmbedFrameworksBuildPhase(String targetName, boolean autoCreate) {
+    public PBXBuildPhase getEmbedFrameworksBuildPhase(String targetName) {
         PBXTarget target = this.getNativeTargetWithName(targetName);
         PBXBuildPhase phase = null;
         if (target != null) {
@@ -270,7 +279,7 @@ public class XCode extends XCodeProject {
                 }
             }
 
-            if (phase == null && autoCreate) {
+            if (phase == null) {
                 phase = new PBXBuildPhase("PBXCopyFilesBuildPhase", "\"Embed Frameworks\"", null, "\"\"", 10);
                 this.addCopyFilesBuildPhase(target.getReference().getIdentifier(), phase);
             }
