@@ -12,8 +12,8 @@ repositories {
 
 dependencies {
 	compile gradleApi()
-    compile "ca.mestevens.ios:xcode-project-parser:+"
-    compile "com.googlecode.plist:dd-plist:+"
+    compile "ca.mestevens.ios:xcode-project-parser:0.0.3"
+    compile "com.googlecode.plist:dd-plist:1.16"
 }
 
 task publishLocal(type: Upload) {
