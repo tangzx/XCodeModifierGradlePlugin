@@ -55,7 +55,8 @@ class XCodeProjectConvention {
                                            ".xib":"PBXResourcesBuildPhase",
                                            ".strings":"PBXResourcesBuildPhase",
                                            ".bundle":"PBXResourcesBuildPhase",
-                                           ".dylib":"PBXFrameworksBuildPhase" ]
+                                           ".dylib":"PBXFrameworksBuildPhase",
+                                           ".tbd":"PBXFrameworksBuildPhase" ]
     Map<String, String> fileType = [ ".a":"archive.ar",
                                      ".app":"wrapper.application",
                                      ".s":"sourcecode.asm",
